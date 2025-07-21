@@ -15,7 +15,7 @@ const PAGE_COUNT: number = 1
 // number of results per page
 // HAS TO BE LOWER OR EQUAL TO 200
 // (there's no reason not to use 200 here BTW)
-const RESULTS_PER_PAGE: number = 10;
+const RESULTS_PER_PAGE: number = 200;
 // your search query to see how many pieces an artist has
 // for example, filtering out anything animated since it probably
 // won't make it into finetune datasets
@@ -26,6 +26,8 @@ const ARTIST_SEARCH_MIN: number = 100
 
 // follow along the format
 // ask Gemini for help if you're lost
+// basically, the part in the left is the prompt's "name" that will show up in the filename later
+// the part on the right is your prompt (and it SHOULD include quality tags for reForge, but for NAI you CAN use a preset instead)
 // __ARTIST_NAME__ gets replaced by the actual artist name on the prompt
 const PROMPTS: Map<string, string> = new Map(Object.entries({
     "random_boy": "__ARTIST_NAME__, 1boy, solo, brown hair, smug, looking at viewer, portrait",
@@ -35,7 +37,7 @@ const PROMPTS: Map<string, string> = new Map(Object.entries({
 // output folder for your gens
 const OUTPUT_FOLDER: string = "./outputs"
 
-// whether or not to use NovelAI
+// whether or not to use NovelAI instead of reForge
 const USE_NAI: boolean = true
 
 // NAI API url all the way to the image gen endpoint
@@ -45,8 +47,9 @@ const NAI_URL: string = "https://image.novelai.net/ai/generate-image"
 const NAI_TOKEN: string = "pst-your-key-here"
 // the request body
 // if you're confused, consider genning an image on NAI with your browser,
-// going to the network tab, copying the request body and pasting it over this
+// going to the network tab, copying the entire request body and then pasting it over this
 // object
+// ask your preferred LLM for help with this if you have to
 const NAI_SETTINGS = {
     input: "", // prompt will replace this field in a minute
     model: "nai-diffusion-4-5-full",
@@ -99,9 +102,9 @@ const NAI_SETTINGS = {
 }
 
 // your SDXL url, all the way to txt2img endpoint
-// probably want to leave it alone
+// probably also want to leave it alone
 const SDXL_URL: string = "http://localhost:7860/sdapi/v1/txt2img"
-// you'll have to look at the SDXL api docs to figure out the weird fields on this one sorry
+// you'll have to look at the SDXL api docs to figure out the weird fields on this one sorry, the webui doesn't use the API sort of
 const SDXL_SETTINGS = {
     prompt: "", // gets replaced by the prompt in a minute
     negative_prompt: "worst quality, low quality, old, watermark, signature",
@@ -137,7 +140,7 @@ const SDXL_SETTINGS = {
     hr_upscaler: "R-ESRGAN 4x+ Anime6B",
     hr_second_pass_steps: 12,
     hr_cfg: 1.8,
-    send_images: true, // do not change
+    send_images: true, // do not change or you will break the code
     save_images: false,
     alwayson_scripts: {},
 }
