@@ -17,7 +17,7 @@ Run `bun i` on the project root
 Edit `src/index.ts` at your leisure (it's a single file and thoroughly commented. Pasting it onto your
 preferred LLM and asking them for help with config or any bugs is both encouraged and intended)
 
-Run the script with `src/index.ts`
+Run the script with `bun src/index.ts`
 
 ## Important
 
