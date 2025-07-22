@@ -19,6 +19,8 @@ preferred LLM and asking them for help with config or any bugs is both encourage
 
 Run the script with `bun src/index.ts`
 
+EXTENDED HOW TO BY GEMINI: https://github.com/zshallow/danbooru-artist-finder/blob/main/GEMINI.md
+
 ## Important
 
 For reforge or whatever a111-based webui you use, you'll probably have to pass the `--api` command line option
